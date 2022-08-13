@@ -19,7 +19,7 @@ int main()
         swap(v.at(i), v.at(j));
     }
      // then reverse remaining...
-    for (int j = d - 1,i = n-1;j < i;j++)
+    for (int j = d - 1,i = n-1;j < i;j++,i--)
     {
         swap(v.at(i), v.at(j));
     }
