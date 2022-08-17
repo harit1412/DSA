@@ -29,8 +29,8 @@ void LeftOrder(Node *root, int level)
     LeftOrder(root->left, level + 1);
     LeftOrder(root->right, level + 1);
     // -> For RightView
-    LeftOrder(root->right, level + 1);
-    LeftOrder(root->left, level + 1);
+//     LeftOrder(root->right, level + 1);
+//     LeftOrder(root->left, level + 1);
 }
 
 int main(int argc, char const *argv[])
