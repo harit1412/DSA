@@ -179,6 +179,48 @@ bool children_sum(tree *root)
     return true;
 }
 
+// Using recursive
+bool isCSum(tree *root)
+{
+    if (root == NULL)
+        return true;
+    if (root->left == NULL && root->right == NULL)
+        return true;
+    int sum = 0;
+    if (root->left != NULL)
+        sum += root->left->key;
+    if (root->right != NULL)
+        sum += root->right->key;
+
+    return (root->key == sum && isCSum(root->left) && isCSum(root->right));
+}
+// O(n2)
+bool isBalanced(tree *root)
+{
+    if (root == NULL)
+    {
+        return true;
+    }
+
+    return (abs(Hieght(root->left) - Hieght(root->right)) <= 1) && isBalanced(root->left) && isBalanced(root->right);
+}
+
+// O(n)
+int isBalanced2(tree *root)
+{
+    if (root == NULL)
+        return 0;
+    int lh = isBalanced2(root->left);
+    if (lh == -1)
+        return -1;
+    int rh = isBalanced2(root->right);
+    if (rh == -1)
+        return -1;
+    if (abs(lh - rh) > 1)
+        return -1;
+    else
+        return max(lh, rh) + 1;
+}
 int main(int argc, char const *argv[])
 {
     tree *root = new tree(1);
@@ -208,9 +250,9 @@ int main(int argc, char const *argv[])
     // c(MaxInTree(root));
     // RecLeftView(root, 1);
     // RecRightView(root, 1);
-    if (children_sum(root))
-        cout << "true";
-    else
-        cout << "false";
+    // if (children_sum(root))
+    //     cout << "true";
+    // else
+    //     cout << "false";
     return 0;
 }
