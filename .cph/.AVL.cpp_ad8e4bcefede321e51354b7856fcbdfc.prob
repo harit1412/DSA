@@ -1,0 +1,1 @@
+{"name":"Local: AVL","url":"f:\\DSA\\AVL.cpp","tests":[{"id":1658385920792,"input":"6\n3\nABA\n1\nA\n3\nORZ\n5\nBAAAA\n4\nBKPT\n10\nCODEFORCES","output":"5\n2\n6\n7\n8\n17"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\DSA\\AVL.cpp","group":"local","local":true}

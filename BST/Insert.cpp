@@ -13,7 +13,7 @@ struct tree
     }
 };
 
-tree *Insert(tree *&root, int key)
+void *Insert(tree *&root, int key)
 {
     tree *temp = root;
     tree *prev = NULL;

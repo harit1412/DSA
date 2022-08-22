@@ -122,6 +122,63 @@ int MaxInTree(tree *root)
     return max(root->key, max(MaxInTree(root->left), MaxInTree(root->right)));
 }
 
+void RecLeftView(tree *root, int level)
+{
+    static int mxLevel = 0;
+    if (root == nl)
+        return;
+    if (mxLevel < level)
+    {
+        csp(root->key);
+        mxLevel = level;
+    }
+    RecLeftView(root->left, level + 1);
+    RecLeftView(root->right, level + 1);
+}
+
+void RecRightView(tree *root, int level)
+{
+    static int mxLevel = 0;
+    if (root == nl)
+        return;
+    if (mxLevel < level)
+    {
+        csp(root->key);
+        mxLevel = level;
+    }
+    RecRightView(root->right, level + 1);
+    RecRightView(root->left, level + 1);
+}
+
+bool children_sum(tree *root)
+{
+    if (root == NULL)
+        return true;
+    queue<tree *> q;
+    q.push(root);
+    while (q.size() > 0)
+    {
+        tree *curr = q.front();
+        q.pop();
+        int sum = 0;
+        if (curr->left)
+        {
+            q.push(curr->left);
+            sum += curr->left->key;
+        }
+        if (curr->right)
+        {
+            q.push(curr->right);
+            sum += curr->right->key;
+        }
+        if (sum != curr->key && sum != 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main(int argc, char const *argv[])
 {
     tree *root = new tree(1);
@@ -134,7 +191,12 @@ int main(int argc, char const *argv[])
 
     root->right->left = new tree(6);
     root->right->right = new tree(7);
-
+    // tree *root = new tree(20);
+    // root->left = new tree(8);
+    // root->right = new tree(12);
+    // root->left->left = new tree(3);
+    // root->left->right = new tree(1);
+    // // root = NULL;
     // PreOrder(root);
     // InOrder(root);
     // PostOrder(root);
@@ -143,6 +205,12 @@ int main(int argc, char const *argv[])
     // LevelOrder(root);
     // LevelOrder2(root);
     // c(SizeOfTree(root));
-    c(MaxInTree(root));
+    // c(MaxInTree(root));
+    // RecLeftView(root, 1);
+    // RecRightView(root, 1);
+    if (children_sum(root))
+        cout << "true";
+    else
+        cout << "false";
     return 0;
 }
