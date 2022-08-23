@@ -221,23 +221,80 @@ int isBalanced2(tree *root)
     else
         return max(lh, rh) + 1;
 }
+
+int MaxWidth(tree *root)
+{
+    if (root == NULL)
+        return 0;
+    // if (root->left == NULL and root->right == NULL)
+    //     return 1;
+    queue<tree *> q;
+    q.push(root);
+    q.push(NULL);
+    int mx = 0;
+    int count = 0;
+    while (q.size() > 1)
+    {
+        tree *curr = q.front();
+        q.pop();
+        if (curr == NULL)
+        {
+            q.push(NULL);
+            mx = max(count, mx);
+            count = 0;
+        }
+        else
+        {
+            count++;
+            if (curr->left)
+                q.push(curr->left);
+            if (curr->right)
+                q.push(curr->right);
+        }
+    }
+    mx = max(count, mx);
+    return mx;
+}
+
+// In better way
+int MaxWidth2(tree *root)
+{
+    if (root == NULL)
+        return 0;
+    queue<tree *> q;
+    q.push(root);
+    int mx = 0;
+    while (!q.empty())
+    {
+        int count = q.size();
+        mx = max(mx, count);
+        for (int i = 0; i < count; i++)
+        {
+            tree *curr = q.front();
+            q.pop();
+            if (curr->left)
+                q.push(curr->left);
+            if (curr->right)
+                q.push(curr->right);
+        }
+    }
+    return mx;
+}
+
+
+
+
 int main(int argc, char const *argv[])
 {
+
     tree *root = new tree(1);
     root->left = new tree(2);
+    root->left->right = new tree(2);
     root->right = new tree(3);
-    root->left->left = new tree(4);
-    root->left->right = new tree(5);
-    root->left->left->left = new tree(8);
-    root->left->left->right = new tree(9);
+    root->right->left = new tree(3);
+    root->right->right = new tree(3);
 
-    root->right->left = new tree(6);
-    root->right->right = new tree(7);
-    // tree *root = new tree(20);
-    // root->left = new tree(8);
-    // root->right = new tree(12);
-    // root->left->left = new tree(3);
-    // root->left->right = new tree(1);
+    cout << MaxWidth(root);
     // // root = NULL;
     // PreOrder(root);
     // InOrder(root);
