@@ -18,7 +18,7 @@ void dfs(vector<int> g[], int s)
 void bfs(vector<int> g[], int s)
 {
     queue<int> q;
-    q.push(0);
+    q.push(s);
     while (!q.empty())
     {
         int curr = q.front();
@@ -52,25 +52,24 @@ void bfs(vector<int> g[], int s)
     }
 }
 
-
 // Without source {A node which is disconnected from graph will also be printed}
 void bfs__(vector<int> g[], int s, bool vis[])
 {
     queue<int> q;
-    q.push(0);
+    q.push(s);
     while (!q.empty())
     {
         int curr = q.front();
         q.pop();
-        if (vis[curr] == true)
-        {
-            continue;
-        }
         vis[curr] = true;
         cout << curr << " ";
         for (auto i : g[curr])
         {
-            q.push(i);
+            if (!vis[i])
+            {
+                vis[i] = true;
+                q.push(i);
+            }
         }
     }
 }
@@ -79,28 +78,29 @@ void bfs2(vector<int> g[], int n) // n -> total node
     bool vis[n] = {false};
     for (int i = 0; i < n; i++)
     {
-        for (auto i : g[i])
-        {
-            if (!vis[i])
-            {
-                bfs__(g, i, vis);
-            }
-        }
+        if (!vis[i])
+            bfs__(g, i, vis);
     }
 }
 
-
-
+void edge(vector<int> g[], int s, int d)
+{
+    g[s].push_back(d);
+    g[d].push_back(s);
+}
 int main()
 {
-    vector<int> g[6];
-    g[0].push_back(1);
-    g[0].push_back(2);
-    g[0].push_back(5);
-    g[1].push_back(3);
-    g[2].push_back(4);
-    g[4].push_back(5);
-    g[3].push_back(5);
-    bfs2(g, 6);
+
+    vector<int> g[7];
+    edge(g, 0, 1);
+    edge(g, 0, 2);
+    edge(g, 1, 3);
+    edge(g, 2, 3);
+    edge(g, 4, 5);
+    edge(g, 4, 6);
+    edge(g, 5, 6);
+
+    // bfs(g, 0);
+    bfs2(g, 7);
     return 0;
 }
