@@ -16,6 +16,15 @@ struct tree
     }
 };
 
+void PrintList(tree* head)
+{
+    while(head)
+    {
+        cout << head->key << " ";
+        head = head->right;
+    }
+}
+
 void PreOrder(tree *root)
 {
     if (root == nl)
@@ -281,7 +290,28 @@ int MaxWidth2(tree *root)
     return mx;
 }
 
+tree* ok = NULL;
+tree* TreeToList(tree *root)
+{
+    if (root == NULL)
+    {
+        return root;
+    }
+    tree* head = TreeToList(root->left);
+     if(ok == NULL)
+     {
+        head = root;
+     }
+     else
+     {
+        root->left=ok;
+        ok->right=root;
+     }
+     ok=root;
+    TreeToList(root->right);
+return head;
 
+}
 
 
 int main(int argc, char const *argv[])
@@ -289,12 +319,12 @@ int main(int argc, char const *argv[])
 
     tree *root = new tree(1);
     root->left = new tree(2);
-    root->left->right = new tree(2);
-    root->right = new tree(3);
-    root->right->left = new tree(3);
-    root->right->right = new tree(3);
-
-    cout << MaxWidth(root);
+    root->left->right = new tree(3);
+    root->right = new tree(4);
+    root->right->left = new tree(5);
+    root->right->right = new tree(6);
+PrintList(TreeToList(root));
+    // cout << MaxWidth(root);
     // // root = NULL;
     // PreOrder(root);
     // InOrder(root);
