@@ -14,6 +14,14 @@ Return an array containing all the safe nodes of the graph. The answer should be
 */
 
 
+/*
+
+    Can also apply TopologicalSort ..
+    Reverse All the edges , Now apply BFS;Kahn's or DFS toposort... [if we want to print terminating node , just before nodes terminating , just just before terminating node....... so on] (thats the reason for reversing all edges)
+
+
+*/
+
 class Solution {
 public:
 
